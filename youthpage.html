@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9ff;
+            color: #2d3748;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+ /* Hero Section */
+         .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text contrast */
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2;
+            position: relative;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.5s forwards;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.7s forwards;
+        }
+
+               @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1, .hero p, .cta-button {
+            transform: translateY(30px);
+        }
+
+
+        .highlight {
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        .feature-card {
+            text-align: left;
+        }
+
+        .feature-icon {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+            position: relative;
+
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Hide cursor by default */
+        .feature-title::after {
+            content: "|";
+            opacity: 0;
+            animation: none;
+        }
+
+        /* Typing animation keyframes */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Show typing effect only on hover */
+        .feature-card:hover .feature-title {
+            width: 0;
+            animation: typing 2s steps(20) forwards;
+        }
+
+        .feature-card:hover .feature-title::after {
+            opacity: 1;
+            animation: blink 1s step-end infinite;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+ .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            animation: slideUp 1s ease 0.9s forwards;
+        }
+
+        .cta-button:hover {
+            background: var(--text-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Updated icon styles with images */
+        .icon-container {
+            width: 120px;
+            height: 120px;
+            border: 3px  #cbd5e0;
+            border-radius: 50%;
+            background: #f0fff4;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .icon-container.solid-border {
+            border: none;
+        }
+
+        .main-icon {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .secondary-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+.icon-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* or 'contain' based on your preference */
+    display: block;
+}
+        
+               
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .container {
+                padding: 40px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-icon {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 25px;
+            }
+            
+            .icon-container {
+                width: 100px;
+                height: 100px;
+            }
+
+            .main-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .secondary-icon {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Hover effects */
+        .feature-card:hover .feature-icon {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-title {
+            color: #38a169;
+            transition: color 0.3s ease;
+            width: 0;
+            animation: typing 2s steps(20) forwards;
+        }
+
+        .feature-card:hover .feature-title::after {
+            opacity: 1;
+            animation: blink 1s step-end infinite;
+        }
+         .footer-content {
+                padding: 30px;
+		width:max;
+                text-align: center;
+                background: grey;
+            }
+                footer { background: #779ff0; color: #080707; text-align: center; padding: 20px; margin-top: 40px; }
+
+        
+    </style>
+</head>
+<body>
+ <section class="hero" id="home">
+ <video autoplay muted loop playsinline class="hero-video">
+            <source src="youth.mp4" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1 >YOUTH</h1>
+            <p>Issues thrive in silence and isolation. By raising awareness, supporting survivors, advocating for systemic change, and creating safe spaces for young people to share their experiences, we can make a difference. Every young person deserves safety, support, and the opportunity to thrive.</p><br><br><br>
+<p><i>Remember: It's not your fault. You're not alone. Help is available. Recovery is possible.</i></p>
+        </div>
+    </section><br><br><br>
+           <center> <a href="help.html" class="cta-button">Helplines for support</a></center>
+
+
+    <div class="container">
+        <div class="header">
+            <h1 style="color: #38a169;">Explore Challenges Faced By Tomorrows Citizens</span></h1>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <div class="icon-container">
+                        <img src="youthemp.png">
+                    </div>
+                </div>
+                <h3 class="feature-title">Youth Unemployment Crisis
+</h3>
+                <p class="feature-description">Young people face unprecedented challenges entering the job market, with barriers including lack of experience, economic instability, and skills mismatches.</p><br>
+<hr><br>
+<p class="feature-description"><b>Global Impact:</b> Over 73 million young people are unemployed worldwide, with rates 3x higher than adult unemployment.</p><br>
+<hr><br>
+<p class="feature-description"><b>Key Challenges:</b> Limited work experience, economic downturns, automation replacing entry-level jobs, inadequate career guidance, and regional economic disparities.</p>
+</div>
+
+<div class="feature-card">
+                <div class="feature-icon">
+                    <div class="icon-container">
+                        <img src="abuse.jpg">
+                    </div>
+                </div>
+                <h3 class="feature-title">Child Abuse & Neglect</h3>
+                <p class="feature-description">Millions of children and adolescents worldwide experience physical, emotional, or sexual abuse, often by trusted adults, leaving lasting psychological and physical scars.</p><br>
+<hr><br>
+<p class="feature-description"><b>Shocking Reality:</b> 1 in 4 children experience physical abuse, and 1 in 5 girls and 1 in 13 boys experience sexual abuse.</p><br>
+<hr><br>
+<p class="feature-description"><b>Forms Include:</b>Physical violence, emotional manipulation, sexual exploitation, neglect, cyberbullying, and exploitation through child labor.</p>
+</div>
+<div class="feature-card">
+                <div class="feature-icon">
+                    <div class="icon-container">
+                        <img src="ptsd.png">
+                    </div>
+                </div>
+                <h3 class="feature-title">Trauma & PTSD</h3>
+                <p class="feature-description">Young people exposed to violence, natural disasters, war, abuse, or severe accidents often develop trauma responses that affect their development and wellbeing.</p><br>
+<hr><br>
+<p class="feature-description"><b>Hidden Epidemic:</b>Up to 70% of youth have experienced at least one traumatic event, with many cases going unrecognized.</p><br>
+<hr><br>
+<p class="feature-description"><b>Common Triggers:</b> Violence, accidents, natural disasters, abuse, witnessing harm to others, sudden loss, and community violence.</p>
+</div>
+<div class="feature-card">
+                <div class="feature-icon">
+                    <div class="icon-container">
+                        <img src="mental.png">
+                    </div>
+                </div>
+                <h3 class="feature-title">Mental Health Crisis</h3>
+                <p class="feature-description">Depression, anxiety, eating disorders, and self-harm rates among youth have reached alarming levels, exacerbated by social media, academic pressure, and global uncertainties.</p><br>
+<hr><br>
+<p class="feature-description"><b>Critical Numbers:</b> 1 in 5 adolescents experience mental health disorders, with suicide being the 2nd leading cause of death among 15-29 year-olds.</p><br>
+<hr><br>
+<p class="feature-description"><b>Contributing Factors:</b> Academic pressure, social media comparison, family dysfunction, bullying, identity struggles, and societal expectations.</p>
+</div>
+<div class="feature-card">
+                <div class="feature-icon">
+                    <div class="icon-container">
+                        <img src="bully.png">
+                    </div>
+                </div>
+                <h3 class="feature-title">Bullying & Cyberbullying</h3>
+                <p class="feature-description">Traditional bullying has evolved into 24/7 digital harassment, affecting millions of young people and contributing to anxiety, depression, and academic decline.</p><br>
+<hr><br>
+<p class="feature-description"><b>Widespread Problem:</b> 1 in 3 students report being bullied at school, and 15% experience cyberbullying online.</p><br>
+<hr><br>
+<p class="feature-description"><b>Modern Forms:</b> Social exclusion, physical intimidation, verbal harassment, online shaming, doxxing, and targeted harassment campaigns.</p>
+</div>
+<div class="feature-card">
+                <div class="feature-icon">
+                    <div class="icon-container">
+                        <img src="migra.png">
+                    </div>
+                </div>
+                <h3 class="feature-title">Global Youth Displacement</h3>
+                <p class="feature-description">Climate change, conflict, and economic instability force millions of young people to leave their homes, disrupting education and increasing vulnerability.</p><br>
+<hr><br>
+<p class="feature-description"><b>Staggering Scale:</b> Over 35 million children are displaced globally, many separated from families and lacking access to basic services.</p><br>
+<hr><br>
+<p class="feature-description"><b>Root Causes:</b> Armed conflict, natural disasters, persecution, climate change, and extreme poverty forcing families to migrate.</p>
+</div>
+
+                </div>
+<br><br>
+<footer>
+<p>© 2025 Global Issue Explorer. All rights reserved.</p>
+</footer>
+</body>
+</html>

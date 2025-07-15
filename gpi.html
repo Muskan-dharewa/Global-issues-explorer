@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Global Peace Index (GPI)</title>
+  <style>
+    body {
+      background: #fff5f8;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff6fa1;
+      margin-bottom: 10px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #ffeaf0;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 2px solid #ffc3d1;
+      border-radius: 10px;
+      width: 70%;
+      margin-bottom: 15px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ffc3d1;
+    }
+
+    th {
+      background-color: #ffcad4;
+      color: #222;
+    }
+
+    tr:hover {
+      background-color: #fff0f5;
+    }
+
+    .info-card {
+      background-color: #ffe1ec;
+      border: 2px solid #ffbad2;
+      padding: 15px;
+      margin: 15px auto;
+      border-radius: 15px;
+      max-width: 600px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .info-card h2 {
+      color: #ff5d94;
+      margin-bottom: 5px;
+    }
+
+    .info-card p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌸 Global Peace Index (GPI)</h1>
+    <input type="text" id="search" placeholder="Search for a country..." />
+    <div id="countryInfo"></div>
+
+    <table id="gpiTable">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>GPI Score</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const data = [
+      { country: "Iceland", score: 1.1, reason: "No army, low crime, high social trust." },
+      { country: "New Zealand", score: 1.2, reason: "Strong democratic institutions and low conflict." },
+      { country: "Ireland", score: 1.3, reason: "Neutral stance and low domestic crime." },
+      { country: "Denmark", score: 1.35, reason: "Stable economy and low corruption." },
+      { country: "Austria", score: 1.4, reason: "Neutral country with peaceful diplomacy." },
+      { country: "Portugal", score: 1.42, reason: "Low crime and high safety for citizens." },
+      { country: "Slovenia", score: 1.43, reason: "Calm political environment and regional harmony." },
+      { country: "Czech Republic", score: 1.45, reason: "Low militarization and regional peace." },
+      { country: "Singapore", score: 1.5, reason: "Strict laws maintain peace and order." },
+      { country: "Japan", score: 1.52, reason: "Pacifist constitution and social stability." },
+      { country: "Switzerland", score: 1.54, reason: "Neutrality and high prosperity." },
+      { country: "Canada", score: 1.6, reason: "Multicultural society with strong governance." },
+      { country: "Finland", score: 1.63, reason: "Strong rule of law and low corruption." },
+      { country: "Norway", score: 1.64, reason: "High equality and quality of life." },
+      { country: "Germany", score: 1.7, reason: "Democratic stability and human rights focus." },
+      { country: "Bhutan", score: 1.72, reason: "Focus on happiness and non-violence." },
+      { country: "Malaysia", score: 1.75, reason: "Stable government and limited conflict." },
+      { country: "Netherlands", score: 1.76, reason: "Strong institutions and peaceful diplomacy." },
+      { country: "Belgium", score: 1.78, reason: "Low conflict levels and peaceful foreign policy." },
+      { country: "Sweden", score: 1.8, reason: "Neutrality and welfare-driven governance." },
+      { country: "Australia", score: 1.85, reason: "Low internal conflict and stable politics." },
+      { country: "South Korea", score: 1.9, reason: "Democratic society with occasional regional tensions." },
+      { country: "Hungary", score: 1.92, reason: "Minimal external conflict and EU cooperation." },
+      { country: "Croatia", score: 1.95, reason: "Post-war peace and development efforts." },
+      { country: "Slovakia", score: 2.0, reason: "Low crime and strong EU relations." },
+      { country: "Chile", score: 2.05, reason: "Stable governance and peaceful transitions." },
+      { country: "Estonia", score: 2.07, reason: "Digital government and regional peace." },
+      { country: "Spain", score: 2.1, reason: "Democratic values with low violence." },
+      { country: "Italy", score: 2.2, reason: "Moderate peace despite occasional internal issues." },
+      { country: "United Kingdom", score: 2.25, reason: "Stable but affected by terrorism and protests." },
+      { country: "United States", score: 2.7, reason: "High military expenditure and internal unrest." },
+      { country: "India", score: 2.85, reason: "Democracy with regional and internal tensions." },
+      { country: "Brazil", score: 2.9, reason: "Urban crime and social inequality issues." },
+      { country: "South Africa", score: 3.0, reason: "High crime rates and socio-economic divisions." },
+      { country: "Mexico", score: 3.1, reason: "Drug-related violence and corruption." },
+      { country: "Turkey", score: 3.2, reason: "Political instability and military activity." },
+      { country: "Israel", score: 3.3, reason: "Conflict with neighbors and high security needs." },
+      { country: "Philippines", score: 3.35, reason: "Internal conflicts and political unrest." },
+      { country: "Iran", score: 3.4, reason: "Sanctions, authoritarian rule, and regional tension." },
+      { country: "Pakistan", score: 3.45, reason: "Terrorism, border disputes, and political instability." },
+      { country: "Russia", score: 3.5, reason: "High militarization and foreign conflicts." },
+      { country: "Ukraine", score: 3.55, reason: "War and territorial disputes." },
+      { country: "Iraq", score: 3.6, reason: "Post-war instability and ongoing violence." },
+      { country: "Nigeria", score: 3.65, reason: "Ethnic tensions and terrorism." },
+      { country: "Sudan", score: 3.7, reason: "Internal conflict and humanitarian crisis." },
+      { country: "Afghanistan", score: 3.75, reason: "Decades of war and instability." },
+      { country: "Syria", score: 3.8, reason: "Civil war and severe humanitarian crisis." },
+      { country: "Yemen", score: 3.85, reason: "Civil war and extreme poverty." },
+      { country: "Somalia", score: 3.9, reason: "Failed state with armed conflict." }
+    ];
+
+    function displayData(filteredList = data) {
+      const tableBody = document.getElementById("tableBody");
+      tableBody.innerHTML = "";
+      filteredList.forEach(item => {
+        tableBody.innerHTML += `
+          <tr>
+            <td>${item.country}</td>
+            <td>${item.score}</td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById("search").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const filteredData = data.filter(item => item.country.toLowerCase().includes(query));
+      displayData(filteredData);
+      showCountryInfo(query);
+    });
+
+    function showCountryInfo(query) {
+      const country = data.find(item => item.country.toLowerCase() === query);
+      const infoDiv = document.getElementById("countryInfo");
+      if (country) {
+        infoDiv.innerHTML = `
+          <div class="info-card">
+            <h2>${country.country} 🌏</h2>
+            <p><strong>GPI Score:</strong> ${country.score}</p>
+            <p><strong>Why:</strong> ${country.reason}</p>
+          </div>
+        `;
+      } else {
+        infoDiv.innerHTML = "";
+      }
+    }
+
+    displayData();
+  </script>
+</body>
+</html>

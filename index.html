@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Issue Explorer</title>
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --primary-dark: #3a5a8a;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --accent: #4ecdc4;
+            --danger: #ff6b6b;
+            --success: #96ceb4;
+            --info: #45b7d1;
+            --text-light: #f8fafc;
+            --text-dark: #1e293b;
+            --section-padding: 5rem 2rem;
+            --card-radius: 20px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Common Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--secondary);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: grey;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+         .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text contrast */
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2;
+            position: relative;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2;
+            position: relative;
+
+
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.5s forwards;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.7s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            animation: slideUp 1s ease 0.9s forwards;
+        }
+
+        .cta-button:hover {
+            background: var(--text-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1, .hero p, .cta-button {
+            transform: translateY(30px);
+        }
+
+        /* Main Content Sections */
+        .section {
+            padding: var(--section-padding);
+        }
+
+        .bg-light {
+            background-color: var(--light);
+        }
+
+        .bg-dark {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+
+        .bg-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--text-light);
+        }
+
+        
+       
+        .link-button {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .link-button:hover {
+            gap: 1rem;
+            color: var(--primary-dark);
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Scrollable Years Section */
+        .scroll-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--card-radius);
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .scroll-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .scroll-list li {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s ease;
+        }
+
+        .scroll-list li:last-child {
+            border-bottom: none;
+        }
+
+        .scroll-list li:hover {
+            background-color: var(--light);
+        }
+
+        .scroll-list a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .scroll-list a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        /* Plane Navigation */
+        .road-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 2rem auto 0;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .plane {
+            font-size: 50px;
+            position: absolute;
+            top: -10px;
+            left: 0;
+            transition: left 0.5s ease-in-out;
+        }
+
+        .road {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--secondary);
+            padding: 20px;
+            border-radius: 50px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-button {
+            font-size: 16px;
+            font-weight: bold;
+            background-color: var(--light);
+            color: var(--dark);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .nav-button:hover {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--text-light);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .issues-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+ .footer-contact {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: left;
+        }
+        
+        .footer-contact h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .footer-contact h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            text-align: center;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-input {
+            padding: 0.8rem;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: transparent;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-input::placeholder {
+            color: #aaa;
+        }
+        
+        .send-button {
+            padding: 1rem;
+            background: #4a6fa5;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .send-button:hover {
+            background: #3a5a8a;
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="#" class="logo">🌍 Global Issue Explorer</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="help.html">Helpline</a></li>
+                <li><a href="aboutglobal.html">About Us</a></li>
+                            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+ <video autoplay muted loop playsinline class="hero-video">
+            <source src="global.mp4" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Explore Global Challenges</h1>
+            <p>Discover, understand, and engage with the world's most pressing issues through interactive data visualizations and comprehensive analysis.</p>
+        </div>
+    </section>
+<section class="section" id="topics">
+        <div class="container">
+            <h2 class="section-title">Explore Topics</h2>
+            <p class="section-subtitle">Quick navigation to key global issue categories</p>
+            
+            <div class="road-container">
+                <div class="plane" id="plane">✈️</div>
+                <div class="road">
+                    <button class="nav-button" data-search="GlobalWarming.html">Global Warming</button>
+                    <button class="nav-button" data-search="Urbanisation.html">Urbanisation</button>
+                    <button class="nav-button" data-search="Warsconflicts.html">Wars&Conflicts</button>
+                    <button class="nav-button" data-search="youthpage.html">Youth</button>
+                    <button class="nav-button" data-search="globalindex.html">Global Indexes</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+   
+    <section class="section bg-gradient" id="data">
+        <div class="container">
+            <h2 class="section-title">Global Statistics</h2>
+            <p class="section-subtitle">Key numbers that tell the story of our world's most pressing issues</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">700M+</div>
+                    <div class="stat-label">People in extreme poverty</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">1.1°C</div>
+                    <div class="stat-label">Global temperature rise</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">258M</div>
+                    <div class="stat-label">Children out of school</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">2B</div>
+                    <div class="stat-label">People without clean water</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-light" id="years">
+        <div class="container">
+            <h2 class="section-title">Explore By Year</h2>
+            <p class="section-subtitle">See how global issues have evolved over time</p>
+            
+            <div class="scroll-container">
+                <ul class="scroll-list">
+                    <script>
+                        for (let year = 2000; year <= 2030; year++) {
+					document.write(`<li><a href="https://en.wikipedia.org/wiki/${year}" target="_blank">${year}</a></li>`);
+                        }
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    
+   <footer class="section bg-dark">
+        <div class="footer-content">
+            <div class="footer-contact">
+                <h2>Contact</h2>
+                <p>We offer comprehensive analysis of any global issue, large or small. We understand your needs and will provide information to satisfy your curiosity about our world. Do not hesitate to contact us.</p>
+                
+                <h3>Global Issue Explorer, 789 Ocean View, ComplexMumbai, Maharashtra, India</h3>
+                
+                <div class="contact-info">
+                    <p>You can also contact us by phone +91-9876543210 or email info@globalexplorer.com,</p>
+                    <p>or you can send us a message here:</p>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <input type="text" class="form-input" placeholder="Name" required>
+                    <input type="email" class="form-input" name="email" placeholder="Enter your email address" required>
+                    <input type="datetime-local" class="form-input" value="2020-11-16T20:00">
+                    <textarea class="form-input" id="suggestionText" placeholder="express your concerns/state mistakes in our page/to add any other topics" rows="3"></textarea>
+                    <button type="submit" class="send-button">SEND MESSAGE</button>
+                </form>
+            </div>
+            
+               <p class="copyright">© 2025 Global Issue Explorer. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Get the suggestion text
+            const suggestion = document.getElementById('suggestionText').value;
+            
+            alert(`Thank you for your suggestion:\n\n"${suggestion}"\n\nWe appreciate your feedback and will review it shortly.`);
+                        
+            // Reset the form
+            this.reset();
+        });
+
+        // Plane navigation
+        const plane = document.getElementById('plane');
+        const buttons = document.querySelectorAll('.nav-button');
+
+        buttons.forEach((button, index) => {
+            // Plane animation on hover
+            button.addEventListener('mouseover', () => {
+                plane.style.left = `${index * 20}%`; // Adjusted for better positioning
+            });
+
+            // Open HTML page on click
+            button.addEventListener('click', () => {
+                const fileName = button.getAttribute('data-search');
+                window.location.href = fileName; // Opens in same tab
+                
+                // OR to open in new tab:
+                // window.open(fileName, '_blank');
+            });
+        });
+        
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+           </script>
+</body>
+</html>

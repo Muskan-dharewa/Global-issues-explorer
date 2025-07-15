@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Climate Change Tree</title>
+  <style>
+   
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(-45deg, #e6e4e3, #ffbd33, #33ff57, #337dff);
+      background-size: 400% 400%;
+      animation: gradientMove 8s infinite ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h1 {
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+      font-size: 2.8rem;
+      margin: 0 0 10px;
+    }
+
+    .star {
+      font-size: 3.5rem;
+      color: gold;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+      margin-bottom: -10px;
+    }
+
+    .branch {
+      display: flex;
+      justify-content: center;
+    }
+
+    .leaf {
+      border: 3px solid #2e7d32;
+      border-radius: 30px;
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.3s, background-color 0.3s;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .leaf:hover {
+      background-color: #2e7d32;
+      transform: scale(1.1);
+    }
+
+    .trunk {
+      width: 60px;
+      height: 140px;
+      background-color: #8b4513;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    /* Size variation for Christmas tree shape */
+    .level-1 .leaf {
+      font-size: 1rem;
+      padding: 10px 16px;
+    }
+
+    .level-2 .leaf {
+      font-size: 1.3rem;
+      padding: 14px 24px;
+    }
+
+    .level-3 .leaf {
+      font-size: 1.6rem;
+      padding: 18px 32px;
+    }
+
+    .level-4 .leaf {
+      font-size: 2rem;
+      padding: 24px 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tree">
+    
+    <div class="branch level-1">
+      <a href="https://www.google.com/search?q=rising+sea+levels" class="leaf">Rising Sea Levels</a>
+    </div>
+
+    <div class="branch level-2">
+      <a href="https://www.google.com/search?q=extreme+weather+events" class="leaf">Extreme Weather</a>
+    </div>
+
+    <div class="branch level-3">
+      <a href="https://www.google.com/search?q=loss+of+biodiversity" class="leaf">Biodiversity Loss</a>
+    </div>
+
+    <div class="branch level-4">
+      <a href="https://www.google.com/search?q=acidification+of+oceans" class="leaf">Ocean Acidification</a>
+    </div>
+
+    <div class="trunk"></div>
+  </div>
+</body>
+</html>

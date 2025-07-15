@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Human Development Index (HDI)</title>
+  <style>
+    body {
+      background: #eafaff;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #60c3d1;
+      margin-bottom: 10px;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: #d6f3ff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 2px solid #a8e6ff;
+      border-radius: 10px;
+      width: 70%;
+      margin-bottom: 15px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #a8e6ff;
+    }
+
+    th {
+      background-color: #b3ecff;
+      color: #222;
+    }
+
+    tr:hover {
+      background-color: #e1f7ff;
+    }
+
+    .info-card {
+      background-color: #caf1ff;
+      border: 2px solid #a6e4f2;
+      padding: 15px;
+      margin: 15px auto;
+      border-radius: 15px;
+      max-width: 600px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .info-card h2 {
+      color: #50bdd2;
+      margin-bottom: 10px;
+    }
+
+    .info-card p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌍 Human Development Index (HDI)</h1>
+    <input type="text" id="search" placeholder="Search for a country..." />
+    <div id="countryInfo"></div>
+
+    <table id="hdiTable">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>HDI Score</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const data = [
+  {
+    country: "Norway",
+    score: 0.961,
+    lifeExpectancy: 83.2,
+    literacyRate: 100,
+    gniPerCapita: "$66,494",
+    reason: "Excellent health, education, and income levels."
+  },
+  {
+    country: "Switzerland",
+    score: 0.955,
+    lifeExpectancy: 83.8,
+    literacyRate: 99,
+    gniPerCapita: "$63,424",
+    reason: "Strong economy and high life expectancy."
+  },
+  {
+    country: "Ireland",
+    score: 0.955,
+    lifeExpectancy: 82.3,
+    literacyRate: 99,
+    gniPerCapita: "$60,741",
+    reason: "Robust healthcare and education system."
+  },
+  {
+    country: "Germany",
+    score: 0.947,
+    lifeExpectancy: 81.3,
+    literacyRate: 99,
+    gniPerCapita: "$50,729",
+    reason: "Highly developed infrastructure and social services."
+  },
+  {
+    country: "Hong Kong",
+    score: 0.946,
+    lifeExpectancy: 85.5,
+    literacyRate: 99,
+    gniPerCapita: "$62,985",
+    reason: "Exceptional life expectancy and economic output."
+  },
+  {
+    country: "Australia",
+    score: 0.944,
+    lifeExpectancy: 83.3,
+    literacyRate: 99,
+    gniPerCapita: "$49,238",
+    reason: "High quality healthcare and education systems."
+  },
+  {
+    country: "Iceland",
+    score: 0.943,
+    lifeExpectancy: 83.0,
+    literacyRate: 99,
+    gniPerCapita: "$49,136",
+    reason: "Strong social welfare and gender equality."
+  },
+  {
+    country: "Sweden",
+    score: 0.942,
+    lifeExpectancy: 83.0,
+    literacyRate: 99,
+    gniPerCapita: "$50,339",
+    reason: "Comprehensive social security system."
+  },
+  {
+    country: "Singapore",
+    score: 0.939,
+    lifeExpectancy: 83.6,
+    literacyRate: 97,
+    gniPerCapita: "$88,155",
+    reason: "Outstanding economic performance."
+  },
+  {
+    country: "Netherlands",
+    score: 0.939,
+    lifeExpectancy: 82.1,
+    literacyRate: 99,
+    gniPerCapita: "$53,024",
+    reason: "High standard of living and education."
+  },
+  {
+    country: "Denmark",
+    score: 0.936,
+    lifeExpectancy: 80.9,
+    literacyRate: 99,
+    gniPerCapita: "$54,356",
+    reason: "Strong welfare state and equality."
+  },
+  {
+    country: "Finland",
+    score: 0.935,
+    lifeExpectancy: 81.9,
+    literacyRate: 99,
+    gniPerCapita: "$45,703",
+    reason: "Excellent education system."
+  },
+  {
+    country: "Canada",
+    score: 0.929,
+    lifeExpectancy: 82.3,
+    literacyRate: 99,
+    gniPerCapita: "$45,031",
+    reason: "Universal healthcare and high living standards."
+  },
+  {
+    country: "United States",
+    score: 0.926,
+    lifeExpectancy: 78.9,
+    literacyRate: 99,
+    gniPerCapita: "$63,826",
+    reason: "High income levels but health disparities."
+  },
+  {
+    country: "United Kingdom",
+    score: 0.925,
+    lifeExpectancy: 81.3,
+    literacyRate: 99,
+    gniPerCapita: "$42,944",
+    reason: "Strong public services and infrastructure."
+  },
+  {
+    country: "Belgium",
+    score: 0.925,
+    lifeExpectancy: 81.6,
+    literacyRate: 99,
+    gniPerCapita: "$47,519",
+    reason: "Comprehensive social security."
+  },
+  {
+    country: "New Zealand",
+    score: 0.925,
+    lifeExpectancy: 82.3,
+    literacyRate: 99,
+    gniPerCapita: "$39,826",
+    reason: "High quality of life and environment."
+  },
+  {
+    country: "Japan",
+    score: 0.919,
+    lifeExpectancy: 84.6,
+    literacyRate: 99,
+    gniPerCapita: "$41,446",
+    reason: "World's highest life expectancy."
+  },
+  {
+    country: "Austria",
+    score: 0.914,
+    lifeExpectancy: 81.5,
+    literacyRate: 99,
+    gniPerCapita: "$49,247",
+    reason: "Strong economy and healthcare."
+  },
+  {
+    country: "Israel",
+    score: 0.906,
+    lifeExpectancy: 82.6,
+    literacyRate: 98,
+    gniPerCapita: "$38,387",
+    reason: "Advanced technology sector."
+  },
+  {
+    country: "South Korea",
+    score: 0.906,
+    lifeExpectancy: 83.0,
+    literacyRate: 98,
+    gniPerCapita: "$38,351",
+    reason: "Rapid development in recent decades."
+  },
+  {
+    country: "France",
+    score: 0.901,
+    lifeExpectancy: 82.7,
+    literacyRate: 99,
+    gniPerCapita: "$42,330",
+    reason: "Strong social protections."
+  },
+  {
+    country: "Slovenia",
+    score: 0.896,
+    lifeExpectancy: 81.3,
+    literacyRate: 99,
+    gniPerCapita: "$34,820",
+    reason: "Well-developed Eastern European nation."
+  },
+  {
+    country: "Spain",
+    score: 0.893,
+    lifeExpectancy: 83.4,
+    literacyRate: 98,
+    gniPerCapita: "$34,378",
+    reason: "Excellent healthcare system."
+  },
+  {
+    country: "Czech Republic",
+    score: 0.891,
+    lifeExpectancy: 79.3,
+    literacyRate: 99,
+    gniPerCapita: "$35,477",
+    reason: "Strong industrial base."
+  },
+  {
+    country: "Italy",
+    score: 0.885,
+    lifeExpectancy: 83.0,
+    literacyRate: 99,
+    gniPerCapita: "$37,970",
+    reason: "High life expectancy but economic stagnation."
+  },
+  {
+    country: "Malta",
+    score: 0.885,
+    lifeExpectancy: 82.6,
+    literacyRate: 94,
+    gniPerCapita: "$36,210",
+    reason: "Small island with high development."
+  },
+  {
+    country: "Estonia",
+    score: 0.882,
+    lifeExpectancy: 78.8,
+    literacyRate: 99,
+    gniPerCapita: "$33,407",
+    reason: "Advanced digital society."
+  },
+  {
+    country: "Greece",
+    score: 0.872,
+    lifeExpectancy: 82.2,
+    literacyRate: 97,
+    gniPerCapita: "$26,669",
+    reason: "Economic challenges but good health outcomes."
+  },
+  {
+    country: "Poland",
+    score: 0.872,
+    lifeExpectancy: 78.7,
+    literacyRate: 99,
+    gniPerCapita: "$30,860",
+    reason: "Rapid economic growth."
+  },
+  {
+    country: "Lithuania",
+    score: 0.869,
+    lifeExpectancy: 75.7,
+    literacyRate: 99,
+    gniPerCapita: "$32,387",
+    reason: "Baltic nation with strong development."
+  },
+  {
+    country: "United Arab Emirates",
+    score: 0.866,
+    lifeExpectancy: 78.0,
+    literacyRate: 95,
+    gniPerCapita: "$66,203",
+    reason: "High income from oil wealth."
+  },
+  {
+    country: "Portugal",
+    score: 0.864,
+    lifeExpectancy: 81.9,
+    literacyRate: 96,
+    gniPerCapita: "$29,769",
+    reason: "Good social services."
+  },
+  {
+    country: "Hungary",
+    score: 0.854,
+    lifeExpectancy: 76.9,
+    literacyRate: 99,
+    gniPerCapita: "$28,943",
+    reason: "Central European development."
+  },
+  {
+    country: "Chile",
+    score: 0.851,
+    lifeExpectancy: 80.2,
+    literacyRate: 97,
+    gniPerCapita: "$21,728",
+    reason: "Most developed South American nation."
+  },
+  {
+    country: "Croatia",
+    score: 0.849,
+    lifeExpectancy: 78.5,
+    literacyRate: 99,
+    gniPerCapita: "$26,221",
+    reason: "Adriatic nation with strong tourism."
+  },
+  {
+    country: "Argentina",
+    score: 0.842,
+    lifeExpectancy: 76.7,
+    literacyRate: 99,
+    gniPerCapita: "$18,709",
+    reason: "Economic volatility but high literacy."
+  },
+  {
+    country: "Russia",
+    score: 0.824,
+    lifeExpectancy: 72.6,
+    literacyRate: 99,
+    gniPerCapita: "$25,685",
+    reason: "Large disparities between regions."
+  },
+  {
+    country: "Malaysia",
+    score: 0.810,
+    lifeExpectancy: 76.2,
+    literacyRate: 95,
+    gniPerCapita: "$26,658",
+    reason: "Rapidly developing Southeast Asian nation."
+  },
+  {
+    country: "Bulgaria",
+    score: 0.808,
+    lifeExpectancy: 75.0,
+    literacyRate: 98,
+    gniPerCapita: "$21,578",
+    reason: "EU member with development challenges."
+  },
+  {
+    country: "Romania",
+    score: 0.807,
+    lifeExpectancy: 76.1,
+    literacyRate: 99,
+    gniPerCapita: "$26,448",
+    reason: "Improving but with inequality."
+  },
+  {
+    country: "Montenegro",
+    score: 0.805,
+    lifeExpectancy: 76.9,
+    literacyRate: 99,
+    gniPerCapita: "$18,261",
+    reason: "Small Balkan nation."
+  },
+  {
+    country: "Brazil",
+    score: 0.759,
+    lifeExpectancy: 75.9,
+    literacyRate: 93,
+    gniPerCapita: "$13,755",
+    reason: "Large economy but with inequality."
+  },
+  {
+    country: "China",
+    score: 0.752,
+    lifeExpectancy: 77.1,
+    literacyRate: 97,
+    gniPerCapita: "$16,057",
+    reason: "Rapid development but regional disparities."
+  },
+  {
+    country: "Colombia",
+    score: 0.752,
+    lifeExpectancy: 77.3,
+    literacyRate: 95,
+    gniPerCapita: "$13,443",
+    reason: "Improving but with security challenges."
+  },
+  {
+    country: "Thailand",
+    score: 0.745,
+    lifeExpectancy: 77.2,
+    literacyRate: 94,
+    gniPerCapita: "$16,628",
+    reason: "Strong tourism industry."
+  },
+  {
+    country: "South Africa",
+    score: 0.713,
+    lifeExpectancy: 64.1,
+    literacyRate: 95,
+    gniPerCapita: "$12,129",
+    reason: "Africa's most developed economy but with inequality."
+  },
+  {
+    country: "India",
+    score: 0.633,
+    lifeExpectancy: 69.7,
+    literacyRate: 74,
+    gniPerCapita: "$6,284",
+    reason: "Rapid growth but large poor population."
+  },
+  {
+    country: "Kenya",
+    score: 0.575,
+    lifeExpectancy: 66.7,
+    literacyRate: 82,
+    gniPerCapita: "$3,823",
+    reason: "Developing East African nation."
+  },
+  {
+    country: "Nigeria",
+    score: 0.539,
+    lifeExpectancy: 54.7,
+    literacyRate: 62,
+    gniPerCapita: "$4,910",
+    reason: "Large population with development challenges."
+  },
+  {
+    country: "Haiti",
+    score: 0.503,
+    lifeExpectancy: 64.0,
+    literacyRate: 61,
+    gniPerCapita: "$2,962",
+    reason: "Western Hemisphere's poorest nation."
+  }
+];
+    const tableBody = document.getElementById("tableBody");
+    const countryInfo = document.getElementById("countryInfo");
+    const search = document.getElementById("search");
+
+    function renderTable(dataArray) {
+      tableBody.innerHTML = "";
+      dataArray.forEach(country => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${country.country}</td><td>${country.score}</td>`;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function showCountryInfo(name) {
+      const country = data.find(c => c.country.toLowerCase() === name.toLowerCase());
+      if (country) {
+        countryInfo.innerHTML = `
+          <div class="info-card">
+            <h2>${country.country}</h2>
+            <p><strong>HDI Score:</strong> ${country.score}</p>
+            <p><strong>Life Expectancy:</strong> ${country.lifeExpectancy}</p>
+            <p><strong>Literacy Rate:</strong> ${country.literacyRate}%</p>
+            <p><strong>GNI per Capita:</strong> ${country.gniPerCapita}</p>
+            <p><strong>Why:</strong> ${country.reason}</p>
+          </div>
+        `;
+      } else {
+        countryInfo.innerHTML = "<p>No data found. Try another country.</p>";
+      }
+    }
+
+    search.addEventListener("input", () => {
+      const query = search.value.trim();
+      if (query.length > 0) {
+        showCountryInfo(query);
+      } else {
+        countryInfo.innerHTML = "";
+      }
+    });
+
+    renderTable(data);
+  </script>
+</body>
+</html>
