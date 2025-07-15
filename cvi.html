@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Climate Vulnerability Index (CVI)</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #f0fbff;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #294053;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 25px 30px;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #1573e6;
+    }
+    p.description {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #4b6b88;
+      margin-bottom: 25px;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 2px solid #a1d6ff;
+      border-radius: 15px;
+      transition: border-color 0.3s ease;
+      margin-bottom: 18px;
+      outline: none;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: #1573e6;
+      box-shadow: 0 0 8px rgba(21, 115, 230, 0.4);
+    }
+    table {
+      width: 100%;
+      border: 2px solid #a1d6ff;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+
+    }
+    th {
+      background: #d8f0ff;
+      color: #1573e6;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    tr {
+      background: #eff9ff;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+    }
+    tr:hover {
+      background-color: #c5e4ff;
+    }
+    tr.selected {
+      background-color: #7fc1ff;
+      color: white;
+    }
+    .info-card {
+      margin-top: 25px;
+      background: #d8f0ff;
+      border-radius: 15px;
+      padding: 18px 20px;
+      text-align: left;
+      box-shadow: 0 3px 10px rgba(21, 115, 230, 0.3);
+    }
+    .info-card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: #134f8d;
+    }
+    .info-card p {
+      margin: 8px 0;
+      font-size: 1rem;
+      color: #2a4c6e;
+    }
+    .calculator-section {
+      margin-top: 40px;
+      text-align: left;
+      background: #d8f0ff;
+      border-radius: 15px;
+      padding: 20px 25px;
+      box-shadow: 0 3px 10px rgba(21, 115, 230, 0.3);
+    }
+    .calculator-section h2 {
+      font-size: 1.5rem;
+      color: #134f8d;
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      color: #294053;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background-color: #1573e6;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0d4aa0;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #b3e5fc;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #01579b;
+      text-align: center;
+    }
+    @media (max-width: 400px) {
+      .container {
+        padding: 20px 15px;
+      }
+      table, th, td {
+        font-size: 0.9rem;
+      }
+      input[type="text"],
+      input[type="number"] {
+        font-size: 0.9rem;
+      }
+    }
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+      border: 0;
+      padding: 0;
+      margin: -1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <h1>🌱 Climate Vulnerability Index (CVI)</h1>
+    <p class="description">
+      The CVI assesses the vulnerability of regions to climate change based on exposure, sensitivity, and adaptive capacity. Use the search below to find a region and see its detailed profile.
+    </p>
+    <label for="search" class="visually-hidden">Search region</label>
+    <input type="text" id="search" placeholder="Search for a region..." aria-describedby="search-desc" autocomplete="off" />
+    <table aria-labelledby="cviTableCaption" id="cviTable" role="grid" tabindex="0">
+      <caption id="cviTableCaption" class="visually-hidden">Climate Vulnerability Index regions and scores</caption>
+      <thead>
+        <tr>
+          <th scope="col">Region</th>
+          <th scope="col">CVI Score</th>
+          <th scope="col">Main Factor</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody" role="rowgroup">
+        <!-- Rows injected by JS -->
+      </tbody>
+    </table>
+    <div id="infoCard" class="info-card" aria-live="polite" aria-atomic="true" style="display:none;"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section" aria-label="Climate Vulnerability Index Calculator">
+      <h2>Simple CVI Calculator</h2>
+
+      <label for="exposure">Exposure (0 - 1):</label>
+      <input type="number" id="exposure" min="0" max="1" step="0.01" placeholder="Enter Exposure value" />
+
+      <label for="sensitivity">Sensitivity (0 - 1):</label>
+      <input type="number" id="sensitivity" min="0" max="1" step="0.01" placeholder="Enter Sensitivity value" />
+
+      <label for="adaptiveCapacity">Adaptive Capacity (0 - 1):</label>
+      <input type="number" id="adaptiveCapacity" min="0" max="1" step="0.01" placeholder="Enter Adaptive Capacity value" />
+
+      <button id="calculateBtn">Calculate CVI</button>
+
+      <div id="result" class="result" aria-live="polite"></div>
+    </section>
+
+  </div>
+
+  <script>
+    // 50 sample CVI regions data with varying scores & causes
+    const cviData = [
+    { region: "Bangladesh", score: 0.92, mainFactor: "Sea level rise", exposure: "Flooding, cyclones", sensitivity: "High population density", adaptiveCapacity: "Low", notes: "Extremely vulnerable to climate change impacts, particularly in coastal areas." },
+    { region: "Maldives", score: 0.89, mainFactor: "Sea level rise", exposure: "Coastal erosion", sensitivity: "Land scarcity", adaptiveCapacity: "Medium", notes: "Entire nation at risk from rising sea levels." },
+    { region: "Somalia", score: 0.87, mainFactor: "Drought", exposure: "Desertification", sensitivity: "Food insecurity", adaptiveCapacity: "Very low", notes: "Recurrent droughts exacerbate humanitarian crises." },
+    { region: "Haiti", score: 0.85, mainFactor: "Hurricanes", exposure: "Flooding, landslides", sensitivity: "Deforestation", adaptiveCapacity: "Low", notes: "Prone to extreme weather events with limited resilience." },
+    { region: "Philippines", score: 0.83, mainFactor: "Typhoons", exposure: "Storm surges", sensitivity: "Coastal communities", adaptiveCapacity: "Medium", notes: "Frequent powerful typhoons cause widespread damage." },
+    { region: "Mozambique", score: 0.82, mainFactor: "Cyclones", exposure: "Flooding", sensitivity: "Poor infrastructure", adaptiveCapacity: "Low", notes: "Increasingly intense tropical cyclones in recent years." },
+    { region: "Yemen", score: 0.81, mainFactor: "Water scarcity", exposure: "Drought", sensitivity: "Conflict", adaptiveCapacity: "Very low", notes: "Climate impacts compound existing humanitarian crisis." },
+    { region: "Nigeria", score: 0.79, mainFactor: "Desertification", exposure: "Land degradation", sensitivity: "Agricultural dependence", adaptiveCapacity: "Low", notes: "Northern regions particularly affected by expanding Sahara." },
+    { region: "Pakistan", score: 0.78, mainFactor: "Heat waves", exposure: "Glacial melt", sensitivity: "Water stress", adaptiveCapacity: "Medium", notes: "Extreme heat and flooding threaten water security." },
+    { region: "Vietnam", score: 0.77, mainFactor: "Sea level rise", exposure: "Mekong Delta flooding", sensitivity: "Rice production", adaptiveCapacity: "Medium", notes: "Critical agricultural regions at risk from saltwater intrusion." },
+    { region: "India", score: 0.76, mainFactor: "Heat waves", exposure: "Monsoon variability", sensitivity: "Large population", adaptiveCapacity: "Medium", notes: "Increasing frequency of deadly heat waves." },
+    { region: "Afghanistan", score: 0.75, mainFactor: "Drought", exposure: "Water scarcity", sensitivity: "Agricultural collapse", adaptiveCapacity: "Very low", notes: "Climate impacts exacerbate instability." },
+    { region: "Myanmar", score: 0.74, mainFactor: "Cyclones", exposure: "Irrawaddy Delta", sensitivity: "Coastal erosion", adaptiveCapacity: "Low", notes: "Vulnerable to intense storms like Cyclone Nargis." },
+    { region: "Kenya", score: 0.73, mainFactor: "Drought", exposure: "Rainfall variability", sensitivity: "Pastoral communities", adaptiveCapacity: "Medium", notes: "Recurrent droughts threaten food security." },
+    { region: "Ethiopia", score: 0.72, mainFactor: "Rainfall variability", exposure: "Crop failure", sensitivity: "Subsistence farming", adaptiveCapacity: "Low", notes: "Climate impacts contribute to famines." },
+    { region: "Sudan", score: 0.71, mainFactor: "Desertification", exposure: "Temperature rise", sensitivity: "Water conflicts", adaptiveCapacity: "Very low", notes: "Expanding desert drives migration." },
+    { region: "Madagascar", score: 0.70, mainFactor: "Cyclones", exposure: "Deforestation", sensitivity: "Biodiversity loss", adaptiveCapacity: "Low", notes: "Unique ecosystems threatened by climate change." },
+    { region: "Nepal", score: 0.69, mainFactor: "Glacial melt", exposure: "GLOF risks", sensitivity: "Mountain communities", adaptiveCapacity: "Medium", notes: "Himalayan glaciers retreating rapidly." },
+    { region: "Senegal", score: 0.68, mainFactor: "Coastal erosion", exposure: "Sea level rise", sensitivity: "Dakar vulnerability", adaptiveCapacity: "Medium", notes: "Capital city threatened by coastal flooding." },
+    { region: "Ghana", score: 0.67, mainFactor: "Rainfall variability", exposure: "Agricultural stress", sensitivity: "Cocoa production", adaptiveCapacity: "Medium", notes: "Key export crops at risk." },
+    { region: "Tanzania", score: 0.66, mainFactor: "Drought", exposure: "Kilimanjaro glaciers", sensitivity: "Tourism economy", adaptiveCapacity: "Medium", notes: "Famous glaciers disappearing." },
+    { region: "Zimbabwe", score: 0.65, mainFactor: "Drought", exposure: "Lake Kariba", sensitivity: "Hydropower dependence", adaptiveCapacity: "Low", notes: "Power generation threatened by low water levels." },
+    { region: "Cambodia", score: 0.64, mainFactor: "Mekong changes", exposure: "Tonle Sap ecosystem", sensitivity: "Fisheries collapse", adaptiveCapacity: "Medium", notes: "Critical freshwater ecosystem at risk." },
+    { region: "Laos", score: 0.63, mainFactor: "Extreme rainfall", exposure: "Mekong flooding", sensitivity: "Rural poverty", adaptiveCapacity: "Medium", notes: "Increasingly unpredictable monsoon patterns." },
+    { region: "Iraq", score: 0.62, mainFactor: "Temperature rise", exposure: "Water scarcity", sensitivity: "Euphrates depletion", adaptiveCapacity: "Low", notes: "Ancient Mesopotamian marshes drying." },
+    { region: "Iran", score: 0.61, mainFactor: "Drought", exposure: "Lake Urmia", sensitivity: "Water protests", adaptiveCapacity: "Medium", notes: "Shrinking lakes causing environmental crises." },
+    { region: "Guatemala", score: 0.60, mainFactor: "Hurricanes", exposure: "Coffee rust", sensitivity: "Small farmers", adaptiveCapacity: "Medium", notes: "Climate impacts driving migration north." },
+    { region: "Honduras", score: 0.59, mainFactor: "Extreme weather", exposure: "Drought then floods", sensitivity: "Rural poverty", adaptiveCapacity: "Low", notes: "One of most vulnerable in Central America." },
+    { region: "Nicaragua", score: 0.58, mainFactor: "Hurricanes", exposure: "Coastal communities", sensitivity: "Mangrove loss", adaptiveCapacity: "Medium", notes: "Increasing storm intensity threatens coasts." },
+    { region: "Papua New Guinea", score: 0.57, mainFactor: "Sea level rise", exposure: "Island communities", sensitivity: "Relocation needs", adaptiveCapacity: "Low", notes: "First climate refugees already occurring." },
+    { region: "Fiji", score: 0.56, mainFactor: "Cyclones", exposure: "Coral bleaching", sensitivity: "Tourism economy", adaptiveCapacity: "High", notes: "Strong adaptation efforts but high exposure." },
+    { region: "Solomon Islands", score: 0.55, mainFactor: "Sea level rise", exposure: "Disappearing islands", sensitivity: "Saltwater intrusion", adaptiveCapacity: "Low", notes: "Several islands already submerged." },
+    { region: "Vanuatu", score: 0.54, mainFactor: "Cyclones", exposure: "Category 5 storms", sensitivity: "Remote communities", adaptiveCapacity: "Medium", notes: "Frequently ranked most at-risk nation." },
+    { region: "Tuvalu", score: 0.53, mainFactor: "Sea level rise", exposure: "Entire nation", sensitivity: "Freshwater lens", adaptiveCapacity: "Medium", notes: "Existential threat from rising seas." },
+    { region: "Kiribati", score: 0.52, mainFactor: "Coastal erosion", exposure: "Atoll nation", sensitivity: "Relocation planning", adaptiveCapacity: "Medium", notes: "Purchasing land abroad for relocation." },
+    { region: "Marshall Islands", score: 0.51, mainFactor: "King tides", exposure: "Majuro flooding", sensitivity: "Nuclear legacy", adaptiveCapacity: "Medium", notes: "Regular inundation becoming normal." },
+    { region: "Liberia", score: 0.50, mainFactor: "Coastal erosion", exposure: "Monrovia at risk", sensitivity: "Post-conflict", adaptiveCapacity: "Low", notes: "Capital city's coastline disappearing." },
+    { region: "Sierra Leone", score: 0.49, mainFactor: "Flooding", exposure: "Freetown risks", sensitivity: "Deforestation", adaptiveCapacity: "Low", notes: "Deadly mudslides linked to rainfall changes." },
+    { region: "Chad", score: 0.48, mainFactor: "Lake Chad", exposure: "Shrinking lake", sensitivity: "Cross-border conflict", adaptiveCapacity: "Very low", notes: "Lake has shrunk 90% since 1960s." },
+    { region: "Niger", score: 0.47, mainFactor: "Desertification", exposure: "Sahel expansion", sensitivity: "Pastoral conflicts", adaptiveCapacity: "Very low", notes: "Temperature rising 1.5 times global average." },
+    { region: "Mali", score: 0.46, mainFactor: "Temperature rise", exposure: "Drought", sensitivity: "Agricultural failure", adaptiveCapacity: "Very low", notes: "Northern regions becoming uninhabitable." },
+    { region: "Burkina Faso", score: 0.45, mainFactor: "Rainfall variability", exposure: "Crop failure", sensitivity: "Food insecurity", adaptiveCapacity: "Low", notes: "Climate impacts driving rural-urban migration." },
+    { region: "Djibouti", score: 0.44, mainFactor: "Water scarcity", exposure: "Port vulnerability", sensitivity: "Strategic location", adaptiveCapacity: "Medium", notes: "Critical military base at climate risk." },
+    { region: "Eritrea", score: 0.43, mainFactor: "Red Sea warming", exposure: "Coral death", sensitivity: "Fisheries decline", adaptiveCapacity: "Low", notes: "Marine ecosystems under dual stress." },
+    { region: "South Sudan", score: 0.42, mainFactor: "Flooding", exposure: "Sudd wetlands", sensitivity: "Conflict nexus", adaptiveCapacity: "Very low", notes: "Climate impacts exacerbating instability." },
+    { region: "Central African Republic", score: 0.41, mainFactor: "Deforestation", exposure: "Rainforest loss", sensitivity: "Biodiversity", adaptiveCapacity: "Very low", notes: "Critical carbon sink under threat." },
+    { region: "DR Congo", score: 0.40, mainFactor: "Deforestation", exposure: "Congo Basin", sensitivity: "Indigenous peoples", adaptiveCapacity: "Low", notes: "World's second lung at risk." },
+    { region: "Rwanda", score: 0.39, mainFactor: "Land pressure", exposure: "Landslides", sensitivity: "High density", adaptiveCapacity: "Medium", notes: "Climate impacts on fragile recovery." },
+    { region: "Burundi", score: 0.38, mainFactor: "Food insecurity", exposure: "Soil erosion", sensitivity: "Political instability", adaptiveCapacity: "Very low", notes: "Climate stress on already fragile state." },
+    { region: "Comoros", score: 0.37, mainFactor: "Cyclones", exposure: "Small island", sensitivity: "Limited arable land", adaptiveCapacity: "Low", notes: "Entire agricultural base at risk." },
+    { region: "São Tomé and Príncipe", score: 0.36, mainFactor: "Sea level rise", exposure: "Chocolate islands", sensitivity: "Cocoa production", adaptiveCapacity: "Medium", notes: "Unique microclimates threatened." },
+    { region: "Timor-Leste", score: 0.35, mainFactor: "El Niño", exposure: "Coral triangle", sensitivity: "Fisheries collapse", adaptiveCapacity: "Low", notes: "Marine resources critical to food security." }
+];
+    const tableBody = document.getElementById("tableBody");
+    const searchInput = document.getElementById("search");
+    const infoCard = document.getElementById("infoCard");
+
+    // Function to render table rows from filtered data
+    function renderTable(dataArray) {
+      tableBody.innerHTML = "";
+      dataArray.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.setAttribute("tabindex", "0");
+        tr.setAttribute("role", "row");
+        tr.innerHTML = `
+          <td>${item.region}</td>
+          <td>${item.score.toFixed(2)}</td>
+          <td>${item.mainFactor}</td>
+        `;
+        tr.addEventListener("click", () => showInfo(item, tr));
+        tr.addEventListener("keypress", (e) => { if(e.key === "Enter" || e.key === " ") showInfo(item, tr); });
+        tableBody.appendChild(tr);
+      });
+      clearInfo();
+    }
+
+    // Clear selected state and info card
+    function clearInfo() {
+      infoCard.style.display = "none";
+      infoCard.innerHTML = "";
+      const rows = tableBody.querySelectorAll("tr");
+      rows.forEach(row => row.classList.remove("selected"));
+    }
+
+    // Show detailed info for a region, highlight the selected row
+    function showInfo(item, rowElement) {
+      clearInfo();
+      rowElement.classList.add("selected");
+      infoCard.style.display = "block";
+      infoCard.innerHTML = `
+        <h2>${item.region}</h2>
+        <p><strong>CVI Score:</strong> ${item.score.toFixed(2)}</p>
+        <p><strong>Exposure:</strong> ${item.exposure}</p>
+        <p><strong>Sensitivity:</strong> ${item.sensitivity}</p>
+        <p><strong>Adaptive Capacity:</strong> ${item.adaptiveCapacity}</p>
+        <p><strong>Notes:</strong> ${item.notes}</p>
+      `;
+      infoCard.focus();
+    }
+
+    // Filter data based on input search
+    function filterData() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) {
+        renderTable(cviData);
+        clearInfo();
+        return;
+      }
+      const filtered = cviData.filter(item => item.region.toLowerCase().includes(query));
+      renderTable(filtered);
+      if(filtered.length === 1){
+        // Automatically show the info if only one match
+        const row = tableBody.querySelector("tr");
+        if(row) showInfo(filtered[0], row);
+      } else {
+        clearInfo();
+      }
+    }
+
+    // CVI calculator functions
+    function calculateCVI(exposure, sensitivity, adaptiveCapacity) {
+      let cvi = (exposure + sensitivity) - adaptiveCapacity;
+      if(cvi < 0) cvi = 0;
+      if(cvi > 1) cvi = 1;
+      return cvi;
+    }
+
+    function getVulnerabilityLevel(cviScore) {
+      if (cviScore < 0.3) return 'Low Vulnerability';
+      else if (cviScore < 0.6) return 'Moderate Vulnerability';
+      else if (cviScore < 0.8) return 'High Vulnerability';
+      else return 'Severe Vulnerability';
+    }
+
+    // Event listener for calculator button
+    document.getElementById('calculateBtn').addEventListener('click', () => {
+      const exposure = parseFloat(document.getElementById('exposure').value);
+      const sensitivity = parseFloat(document.getElementById('sensitivity').value);
+      const adaptiveCapacity = parseFloat(document.getElementById('adaptiveCapacity').value);
+      const resultDiv = document.getElementById('result');
+
+      if (
+        isNaN(exposure) || exposure < 0 || exposure > 1 ||
+        isNaN(sensitivity) || sensitivity < 0 || sensitivity > 1 ||
+        isNaN(adaptiveCapacity) || adaptiveCapacity < 0 || adaptiveCapacity > 1
+      ) {
+        resultDiv.textContent = 'Please enter valid numbers between 0 and 1 for all fields.';
+        return;
+      }
+
+      const cvi = calculateCVI(exposure, sensitivity, adaptiveCapacity);
+      const level = getVulnerabilityLevel(cvi);
+
+      resultDiv.textContent = `CVI Score: ${cvi.toFixed(2)} — ${level}`;
+    });
+
+    // Initial render of full data table
+    renderTable(cviData);
+    // Search input event
+    searchInput.addEventListener("input", filterData);
+  </script>
+</body>
+</html>

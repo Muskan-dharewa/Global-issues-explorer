@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Climate Change Tree</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("tree.png") no-repeat center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h1 {
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+      font-size: 2.8rem;
+      margin: 0 0 10px;
+    }
+
+    .tree-level {
+      display: flex;
+      justify-content: center;
+    }
+
+    .leaf {
+      border: 3px solid #2e7d32;
+      border-radius: 30px;
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.3s, background-color 0.3s;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .leaf:hover {
+      background-color: #2e7d32;
+      transform: scale(1.1);
+    }
+
+    .trunk {
+      width: 60px;
+      height: 140px;
+      background-color: #8b4513;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    /* Size variation for Christmas tree shape */
+    .level-1 .leaf {
+      font-size: 1rem;
+      padding: 10px 16px;
+    }
+
+    .level-2 .leaf {
+      font-size: 1.5rem;
+      padding: 14px 24px;
+    }
+
+    .level-3 .leaf {
+      font-size: 2rem;
+      padding: 18px 32px;
+    }
+
+    .level-4 .leaf {
+      font-size: 2.5rem;
+      padding: 22px 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tree">
+    
+    <div class="tree-level level-1">
+      <a href="gpi.html" class="leaf">Global Peace Index</a>
+    </div>
+
+    <div class="tree-level level-2">
+      <a href="earthovershoot.html" class="leaf">Earth Overshoot Day</a>
+    </div>
+
+    <div class="tree-level level-3">
+      <a href="hdi.html" class="leaf">Human Development Index</a>
+    </div>
+
+    <div class="tree-level level-4">
+      <a href="cvi.html" class="leaf">Climate Vunerability Index</a>
+    </div>
+
+    <div class="trunk"></div>
+  </div>
+</body>
+</html>

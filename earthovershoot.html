@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earth Overshoot Day | Act for Sustainability</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Neue', cursive;
+      background-color: #e6f2e6;
+      color: #2e4d2e;
+    }
+
+    header {
+      background-color: #388e3c;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .hero {
+      background: url('https://cdn.pixabay.com/photo/2016/03/09/09/30/earth-1245691_960_720.jpg') no-repeat center center/cover;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero h2 {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 2rem;
+      color: #2e4d2e;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .countdown-banner {
+      background-color: #4caf50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      font-size: 1.3rem;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      flex: 1;
+      min-width: 250px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #resources-left {
+      height: 20px;
+      background: linear-gradient(to right, #66bb6a 70%, #d32f2f 30%);
+      border-radius: 10px;
+      margin: 1rem 0 2rem 0;
+    }
+
+    #footprint-calculator {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    select, input[type="number"] {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    button {
+      background-color: #2e7d32;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+    }
+
+    #result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    #suggestions {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #f1f8e9;
+      border-left: 5px solid #8bc34a;
+      border-radius: 10px;
+    }
+
+    footer {
+      background-color: #388e3c;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌍 Earth Overshoot Day</h1>
+  </header>
+
+  <div class="hero">
+    <h2>We're using more than Earth can regenerate 🌱</h2>
+  </div>
+
+  <div class="container">
+    <div class="countdown-banner">
+     🌿 Earth Overshoot Day is in <span id="countdown"></span>!🌿
+    </div>
+
+    <div class="card-container">
+      <div class="card">
+        <h3>What is Overshoot Day?</h3>
+        <p>It's the day when we use up more natural resources than Earth can renew in a year. Each year, it comes earlier.</p>
+      </div>
+      <div class="card">
+        <h3>Why It Matters</h3>
+        <p>We're borrowing from our future. The earlier it falls, the more damage we’re doing. Let’s shift the date!</p>
+      </div>
+    </div>
+
+    <h2>📈 Overshoot Day Trend</h2>
+    <canvas id="trendChart" width="100%" height="100"></canvas>
+
+        <div id="footprint-calculator">
+      <h2>🧮 Footprint Calculator</h2>
+
+      <div class="question">
+        <label for="diet">Your Diet:</label><br />
+        <select id="diet">
+          <option value="1.0">Vegan</option>
+          <option value="1.2">Vegetarian</option>
+          <option value="1.5">Omnivore</option>
+          <option value="2.0">Meat-heavy</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <label for="transport">Transportation Usage:</label><br />
+        <select id="transport">
+          <option value="1.0">Mostly Walking/Biking</option>
+          <option value="1.3">Public Transport</option>
+          <option value="1.7">Drive Occasionally</option>
+          <option value="2.0">Drive Daily</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <label for="energy">Home Energy Use:</label><br />
+        <select id="energy">
+          <option value="1.0">100% Renewable</option>
+          <option value="1.4">Mixed</option>
+          <option value="2.0">High Fossil Fuels</option>
+        </select>
+      </div>
+
+      <button onclick="calculateFootprint()">Calculate My Footprint</button>
+      <div id="result"></div>
+      <div id="suggestions"></div>
+    </div>
+  </div>
+
+  
+  <script>
+    // Countdown to next Earth Overshoot Day (example: Aug 1, 2025)
+    const countdownElement = document.getElementById("countdown");
+    const targetDate = new Date("August 1, 2025").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        countdownElement.innerHTML = "Today!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      countdownElement.innerHTML = `${days} days`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Footprint calculator
+    function calculateFootprint() {
+      const diet = parseFloat(document.getElementById("diet").value);
+      const transport = parseFloat(document.getElementById("transport").value);
+      const energy = parseFloat(document.getElementById("energy").value);
+
+      const total = (diet + transport + energy).toFixed(2);
+      const result = document.getElementById("result");
+      const suggestions = document.getElementById("suggestions");
+
+      result.innerHTML = `🌍 Your Footprint Score: <strong>${total}</strong><br>
+        ${total <= 3 ? "Great job! Keep it up!" :
+        total <= 4.5 ? "You're doing okay, but there's room to improve." :
+        "Consider more sustainable choices to reduce your impact."}`;
+
+      suggestions.innerHTML = total <= 3 ?
+        "<ul><li>Maintain your low-impact diet.</li><li>Continue using renewable energy sources.</li><li>Promote eco-habits around you.</li></ul>" :
+        total <= 4.5 ?
+        "<ul><li>Try reducing meat intake slightly.</li><li>Use public transport more often.</li><li>Consider switching to greener home energy.</li></ul>" :
+        "<ul><li>Cut back on driving or carpool.</li><li>Adopt a plant-based diet gradually.</li><li>Explore solar or green energy options at home.</li></ul>";
+    }
+
+    // Chart for Overshoot Day trend
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    const trendChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+        datasets: [{
+          label: 'Overshoot Day',
+          data: [213, 212, 212, 209, 207, 220, 211, 210, 212, 213],
+          backgroundColor: 'rgba(56, 142, 60, 0.2)',
+          borderColor: 'rgba(56, 142, 60, 1)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'Day of the Year'
+            },
+            beginAtZero: false,
+            min: 180,
+            max: 250
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Year'
+            }
+          }
+        },
+        
+      }
+    });
+  </script>
+</body>
+</html>
