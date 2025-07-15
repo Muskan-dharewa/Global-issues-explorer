@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Issues Explorer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .left {
+      flex: 1;
+      background-color: #ffffff;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+    }
+
+    .left-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .left h1 {
+      font-size: 42px;
+      color: #168a6d;
+      margin-bottom: 25px;
+      line-height: 1.2;
+    }
+
+    .left h2 {
+      color: #168a6d;
+      margin: 25px 0 15px;
+      font-size: 24px;
+    }
+
+    .left p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .left ul {
+      padding-left: 20px;
+      margin-bottom: 25px;
+    }
+
+    .left li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .left button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #168a6d;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .left button:hover {
+      background-color: #0d5f4c;
+    }
+
+    .right {
+      flex: 1;
+      background-image: url('global.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .right::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Enhanced Parallax Effect */
+    @media (min-width: 769px) {
+      .right {
+        background-attachment: fixed;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .left {
+        padding: 40px;
+      }
+      
+      .left h1 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .right {
+        height: 300px;
+        background-attachment: scroll;
+        min-height: auto;
+      }
+      
+      .left-content {
+        max-width: 100%;
+      }
+    }
+ .contribution-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #168a6d;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #168a6d;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #168a6d;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(22, 138, 109, 0.2);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #168a6d;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            font-weight: 600;
+        }
+        
+        .submit-btn:hover {
+            background-color: #0d5f4c;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="left">
+    <div class="left-content">
+      <h1>GLOBAL ISSUES EXPLORER</h1>
+      
+      <h2>Our Mission</h2>
+      <p>We are committed to exploring, educating, and empowering individuals and communities by providing reliable information on global issues—from climate change and human rights to economic inequality, health crises, and geopolitical conflicts. Our goal is to foster informed discussions and inspire actionable solutions for a more just and sustainable future.</p>
+      
+      <h2>Who We Are</h2>
+      <p>Global Issues Explorer is a team of researchers, journalists, and advocates passionate about uncovering the root causes and interconnected nature of global problems. We collaborate with experts, NGOs, and policymakers to deliver well-researched, unbiased, and accessible content.</p>
+      
+      <h2>What We Do</h2>
+      <ul>
+        <li><strong>Research & Analysis</strong>: We break down complex global issues into clear, data-driven insights.</li>
+        <li><strong>Awareness Campaigns</strong>: We highlight underreported crises and amplify voices from affected communities.</li>
+        <li><strong>Solutions-Oriented Reporting</strong>: Beyond problems, we explore innovations, policies, and grassroots movements driving change.</li>
+        <li><strong>Community Engagement</strong>: We encourage dialogue through forums, webinars, and educational resources.</li>
+      </ul>
+      
+      <h2>Why It Matters</h2>
+      <p>In an era of misinformation and fragmented attention, Global Issues Explorer serves as a beacon of clarity and hope. By understanding these challenges, we can collectively work toward meaningful progress.</p>
+      
+      <p><strong>Explore. Understand. Act.</strong></p>
+      
+    </div>
+<br><br><br>
+ <div class="contribution-container">
+        <h1>Share Your Contribution</h1>
+        <p class="form-intro">We're collecting stories of how individuals are helping to conquer global issues. Share your experience and inspire others to take action.</p>
+        
+        <form>
+            <div class="form-group">
+                <label for="name">Your Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Your Contribution <span class="required">*</span></label>
+                <textarea id="message" name="message" placeholder="Tell us about what you've done to help conquer global issues (climate action, social justice, poverty reduction, etc.)" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Share Your Story</button>
+        </form>
+    </div>
+  </div>
+
+
+  <div class="right"></div>
+</div>
+
+<script>
+  document.querySelector('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value
+    };
+    
+    try {
+      const response = await fetch('/submit-contribution', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      const result = await response.json();
+      alert(result.message);
+      
+      // Clear the form if successful
+      if (response.ok) {
+        document.querySelector('form').reset();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('There was an error submitting your form. Please try again.');
+    }
+  });
+</script>
+
+</body>
+</html>
