@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wars and Conflicts</title>
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; background: #f5f5f5; }
+    h1, h2, h3 { margin: 0; padding: 0; } a { text-decoration: none; color: inherit; }
+    .hero { background: white; color: #130e0e; padding: 100px 20px; text-align: center; }
+    .hero h1 { font-size: 3rem; margin-bottom: 20px; } .hero p { font-size: 1.2rem; margin-bottom: 30px; }
+    .btn { display: inline-block; padding: 10px 20px; background: #e0d90c; color: #060606; border-radius: 25px; transition: background 0.3s ease, transform 0.3s ease; }
+    .btn:hover { background: #ff4a3d; transform: translateY(-5px); }
+    .features { padding: 60px 20px; text-align: center; background: #fff; } .features h2 { font-size: 2.5rem; margin-bottom: 40px; }
+    .card-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+    .card { background: #ffffff; border-radius: 10px; padding: 20px; width: 300px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-10px); box-shadow: 0 8px 16px rgba(43, 96, 105, 0.2); }
+    .card h3 { font-size: 1.5rem; margin-bottom: 10px; } .card p { font-size: 1rem; color: #666; }
+    footer { background: #ebefa7; color: #080707; text-align: center; padding: 20px; margin-top: 40px; }
+  </style>
+  <style>
+    .section { background: #fafaf8; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(241, 177, 2, 0.1); margin-bottom: 15px; }
+    details { border-radius: 10px; padding: 10px; cursor: pointer; background: #f9f9f8; }
+    summary { display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: bold; cursor: pointer; list-style: none; }
+    summary::after { content: "⬇"; font-size: 20px; }
+    details[open] summary::after { content: "⬆"; }
+    .content { margin-top: 10px; background: #fefefd; padding: 15px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+    
+<style>
+.parallax-video {
+  position: relative;
+  height: 100vh; /* Changed to viewport height for full screen */
+  width: 100%;
+  overflow: hidden;
+}
+
+.parallax-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures video covers entire container */
+  z-index: -1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay */
+  z-index: 0;
+}
+
+.video-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  z-index: 1;
+  width: 80%;
+  max-width: 800px;
+}
+</style>
+
+<div class="parallax-video">
+  <video autoplay muted loop>
+    <source src="war.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="video-overlay"></div>
+  <div class="video-content">
+    <h1 style="font-size: 3.5rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Global Conflicts Analysis</h1>
+    <p style="font-size: 1.3rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Understanding the impact of war and political instability on societies worldwide</p>
+    <a href="#features" class="btn" style="margin-top: 20px;">Explore Conflicts</a>
+  </div>
+</div>
+
+<section class="hero">
+    <div class="hero-content">
+      <h1>Wars and Political conflicts</h1>
+      <p>Political instability and war have long been among the most devastating forces shaping societies. When governments fail, conflicts emerge, and civil unrest escalates into full-scale wars, the impact is felt on a massive scale. These conflicts result in loss of lives, destruction of economies, mass displacement, and humanitarian crises that take decades to recover from. Understanding the root causes and consequences of such conflicts is crucial in working towards sustainable solutions.</p>
+      <a href="https://en.wikipedia.org/wiki/Political_violence" class="btn">Explore More</a>
+    </div>
+</section>
+
+<section class="hero" style="background: rgb(243, 218, 136)">
+    <div class="hero-content">
+      <h1>Causes</h1>
+      <div class="section">
+        <details>
+            <summary>Government Corruption & Weak Institutions</summary>
+            <div class="content">
+                <p>When leaders prioritize personal power over public welfare, institutions collapse. Corruption weakens governance, making it difficult to enforce laws and maintain stability, often pushing societies toward unrest and rebellion.</p>
+            </div>
+        </details>
+      </div>
+      <div class="section">
+        <details>
+            <summary>Ethnic & Religious Divisions</summary>
+            <div class="content">
+                <p>Many conflicts stem from historical tensions between different ethnic or religious groups. These divisions, when manipulated by political agendas, lead to outbreaks of violence, civil wars, and in extreme cases, genocides.</p>
+            </div>
+        </details>
+      </div>
+      <div class="section">
+        <details>
+            <summary>Economic Struggles & Social Inequality</summary>
+            <div class="content">
+                <p>Economic hardship breeds frustration, particularly when wealth is concentrated among the elite while the majority struggle with poverty. High unemployment rates and lack of opportunities often push people to protest, revolt, or even take up arms.</p>
+            </div>
+        </details>
+      </div>
+      <div class="section">
+        <details>
+            <summary>Authoritarian Rule & Oppression</summary>
+            <div class="content">
+                <p>In countries where freedoms are restricted, opposition voices are silenced, and elections are manipulated, citizens often reach a breaking point. Revolutions and uprisings frequently occur when people are denied basic rights.</p>
+            </div>
+        </details>
+      </div>
+      <div class="section">
+        <details>
+            <summary>Foreign Interventions & Geopolitical Tensions</summary>
+            <div class="content">
+                <p>Many modern conflicts are fueled by external influences. Powerful nations, driven by economic or strategic interests, often intervene in the affairs of weaker states, either directly or by supporting different factions, intensifying the violence.</p>
+            </div>
+        </details>
+      </div>
+    </div>
+</section>
+
+<section id="features" class="features"> 
+    <h2>Major Conflict Case Studies</h2>
+    <div class="card-container">
+      <div class="card">
+        <h3>Syrian Civil War <br> (2011 - Present)</h3>
+        <p>The Syrian Civil War began in 2011 as peaceful protests against the government of Bashar al-Assad, but quickly escalated into a brutal conflict involving multiple factions. Over 500,000 people have been killed, and millions have been displaced, leading to one of the worst refugee crises in modern history. Cities like Aleppo, Homs, and Raqqa have been reduced to rubble, while humanitarian aid remains insufficient. The war continues with no lasting peace, as international powers struggle to find a resolution.<br><br><a href="https://en.wikipedia.org/wiki/Syrian_civil_war" class="btn">Explore More</a></p>
+      </div>
+      <div class="card">
+        <h3>⁠Russia-Ukraine War <br> (2022 - Present)</h3>
+        <p>The Russia-Ukraine war began in February 2022 when Russia launched a full-scale invasion of Ukraine, escalating tensions that had existed since 2014. The war has displaced millions of Ukrainians, causing one of the largest refugee crises in Europe since World War II. Severe economic sanctions on Russia have disrupted global trade, leading to energy shortages and rising inflation. Ukraine, a major grain exporter, has faced food supply disruptions, worsening global hunger. As the war continues, its geopolitical and economic consequences remain far-reaching and unpredictable.<br><a href="https://en.wikipedia.org/wiki/Russo-Ukrainian_War" class="btn">Explore More</a></p>
+      </div>
+      <div class="card">
+        <h3>Yemen Conflict <br> (2014 - Present)</h3>
+        <p>The Yemen conflict began in 2014 when Houthi rebels seized control of the capital, Sanaa, forcing the government into exile. A Saudi-led coalition, backed by the U.S. and other allies, intervened in 2015, leading to prolonged warfare. The war has caused over 250,000 deaths, with millions facing famine and disease due to a collapsed healthcare system. Severe blockades have restricted humanitarian aid, leaving Yemen on the brink of one of the worst humanitarian crises in modern history. Despite international efforts, peace remains elusive, and millions continue to suffer from starvation and displacement. <br><a href="https://en.wikipedia.org/wiki/Yemeni_civil_war_(2014%E2%80%93present)" class="btn">Explore More</a></p>
+      </div>
+    </div>
+</section>
+
+<footer>
+<p>© 2025 Global Issue Explorer. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
