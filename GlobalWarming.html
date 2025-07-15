@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Global Warming</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #2e7d32;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Enhanced Hero Section with Video */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.6), rgba(46, 125, 50, 0.4));
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 2rem;
+      z-index: 2;
+      position: relative;
+      animation: fadeInUp 1.5s ease-out;
+    }
+
+    
+
+    .hero .subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      opacity: 0.9;
+    }
+
+    .hero .call-to-action {
+      font-size: 1.2rem;
+      font-style: italic;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+      to {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-5px);
+      }
+    }
+
+    /* Rest of the styles */
+    .content {
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #e0f2f1, #eafaf1);
+      max-width: 100vw;
+      margin: 0 auto 50px;
+      text-align: center;
+      color: #2e7d32;
+      position: relative;
+    }
+
+    .content::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    .earth-center {
+      animation: spin-earth 20s linear infinite;
+    }
+
+    @keyframes spin-earth {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .topic-btn:hover {
+      animation: pulse-btn 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-btn {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.05); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    p.intro {
+      opacity: 0;
+      transform: translateX(-100px);
+      animation: slideInLeft 2s forwards, float 3s ease-in-out 2s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes slideInLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 4px #2e7d32);
+    }
+
+    p.intro {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: black;
+    }
+
+    .preventions-section {
+      max-width: 900px;
+      margin: 60px auto 80px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .preventions-section h2 {
+      font-size: 2.4rem;
+      margin-bottom: 30px;
+      color: #1b5e20;
+      text-decoration: underline;
+    }
+
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #ffffffcc;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(46,125,50,0.25);
+      padding: 25px 20px;
+      color: #2e7d32;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(46,125,50,0.4);
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-decoration: underline;
+    }
+
+    .causes-list {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      background: #ffffffcc;
+      border-radius: 12px;
+      padding: 20px 25px;
+      box-shadow: 0 5px 10px rgba(46,125,50,0.2);
+      font-size: 1.1rem;
+      color: #1b5e20;
+      list-style: inside disc;
+      text-align: left;
+    }
+
+    .hub-container {
+      position: relative;
+      width: 450px;
+      height: 450px;
+      margin: 30px auto;
+    }
+
+    .earth-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 7rem;
+      transform: translate(-50%, -50%);
+      filter: drop-shadow(0 0 8px #2196f3);
+    }
+
+    .topic-btn {
+      position: absolute;
+      width: 175px;
+      height: 175px;
+      background: #ffffffcc;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      padding: 15px 10px;
+      text-align: center;
+      color: #2e7d32;
+      border: none;
+    }
+
+    .topic-btn:hover, .topic-btn[aria-pressed="true"] {
+      background-color: #a5d6a7cc;
+      box-shadow: 0 10px 20px rgba(46,125,50,0.5);
+    }
+
+    .topic-emoji {
+      font-size: 3rem;
+      margin-bottom: 6px;
+    }
+
+    .pos1 { top: 8%; left: 50%; transform: translate(-50%, -50%); }
+    .pos2 { top: 30%; left: 88%; transform: translate(-50%, -50%); }
+    .pos3 { top: 72%; left: 88%; transform: translate(-50%, -50%); }
+    .pos4 { top: 92%; left: 50%; transform: translate(-50%, -50%); }
+    .pos5 { top: 72%; left: 12%; transform: translate(-50%, -50%); }
+    .pos6 { top: 30%; left: 12%; transform: translate(-50%, -50%); }
+
+    .detail-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 350px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      padding: 20px 25px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .detail-panel.open {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .detail-panel[hidden] {
+      display: none;
+    }
+
+    .detail-panel h2 {
+      margin-top: 0;
+      color: #2e7d32;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .points-list {
+      margin: 0;
+      padding-left: 20px;
+      list-style: disc inside;
+    }
+
+    .learn-more {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: 600;
+      color: #2196f3;
+      text-decoration: none;
+    }
+
+    .learn-more:hover {
+      text-decoration: underline;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .close-btn:hover {
+      color: #444;
+    }
+
+    .intro-section {
+      background-color: rgba(152, 251, 152, 0.8);
+      border-radius: 15px;
+      padding: 40px;
+      margin: 40px 0;
+      box-shadow: 0 5px 15px rgba(46,125,50,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .intro-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .intro-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: black;
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      
+      .hero .subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .hero .call-to-action {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+      
+      .hub-container {
+        width: 360px;
+        height: 360px;
+      }
+
+      .topic-btn {
+        width: 110px;
+        height: 110px;
+        font-size: 1.1rem;
+        padding: 10px 8px;
+      }
+
+      .topic-emoji {
+        font-size: 2.2rem;
+      }
+
+      .earth-center {
+        font-size: 5rem;
+      }
+
+      .detail-panel {
+        width: 90vw;
+        max-height: 60vh;
+      }
+
+      .causes-list {
+        font-size: 1rem;
+        padding: 12px 15px;
+      }
+    }
+                    footer { background: #779ff0; color: #080707; text-align: center; padding: 20px; margin-top: 40px; }
+
+  </style>
+</head>
+<body>
+  <!-- Enhanced Hero Section with Video -->
+  <section class="hero" id="home">
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="warm.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>GLOBAL WARMING</h1>
+      <p class="subtitle">Explore the drastic effects of our negligence on planet Earth</p>
+      <div class="call-to-action">
+        <p><i>The time to act is now. Our planet needs your attention.</i></p>
+      </div>
+    </div>
+    <div class="scroll-indicator" onclick="document.querySelector('.content').scrollIntoView({behavior: 'smooth'})">
+      ⬇
+    </div>
+  </section>
+
+  <div class="content">
+    <section class="intro-section">
+      <h2>What is Global Warming?</h2>
+      <p class="intro-text">
+        Global warming refers to the long-term rise in Earth's average surface temperature due to human activities, primarily the emission of greenhouse gases. Since the Industrial Revolution, the planet's temperature has increased by approximately 1.1°C, with the last decade being the warmest on record. This warming is causing widespread changes to our climate system, including rising sea levels, melting ice caps, more frequent extreme weather events, and disruptions to ecosystems. The scientific consensus is clear: human activities, especially burning fossil fuels and deforestation, are the dominant cause of the observed warming since the mid-20th century. Without significant reductions in emissions, global temperatures are projected to rise by 2.5°C to 4.5°C by 2100, with catastrophic consequences for life on Earth.
+      </p>
+    </section>
+
+    <h2>Major Causes of Global Warming</h2>
+    <ul class="causes-list" aria-label="List of major causes of global warming">
+      <li><strong>Burning of Fossil Fuels:</strong> Coal, oil, and natural gas combustion releases large amounts of CO₂.</li>
+      <li><strong>Deforestation:</strong> Trees absorb CO₂; cutting them down increases greenhouse gases.</li>
+      <li><strong>Industrial Processes:</strong> Factories emit various greenhouse gases like methane and nitrous oxide.</li>
+      <li><strong>Agriculture:</strong> Livestock produce methane, and fertilizer use releases nitrous oxide.</li>
+      <li><strong>Waste Management:</strong> Decomposition of waste in landfills produces methane.</li>
+      <li><strong>Transportation:</strong> Cars, trucks, and airplanes emit CO₂ and other pollutants.</li>
+    </ul>
+
+    <h2>Effects of Global Warming</h2><br><br>
+    <div class="hub-container" role="list">
+      <div class="earth-center" role="img" aria-label="Earth">🌍</div>
+
+      <button class="topic-btn pos1" data-topic="crops" aria-pressed="false" role="listitem" aria-label="Threat to Crops">
+        <div class="topic-emoji">🌾</div>
+        Threat to Crops
+      </button>
+      <button class="topic-btn pos2" data-topic="melting" aria-pressed="false" role="listitem" aria-label="Melting Ice and Glaciers">
+        <div class="topic-emoji">🧊</div>
+        Melting Ice and Glaciers
+      </button>
+      <button class="topic-btn pos3" data-topic="climate" aria-pressed="false" role="listitem" aria-label="Climate Change">
+        <div class="topic-emoji">🌪</div>
+        Climate Change
+      </button>
+      <button class="topic-btn pos4" data-topic="fires" aria-pressed="false" role="listitem" aria-label="Forest Fires">
+        <div class="topic-emoji">🔥</div>
+        Forest Fires
+      </button>
+      <button class="topic-btn pos5" data-topic="wildlife" aria-pressed="false" role="listitem" aria-label="Wildlife and Habitat Loss">
+        <div class="topic-emoji">🦌</div>
+        Wildlife and Habitat Loss
+      </button>
+      <button class="topic-btn pos6" data-topic="health" aria-pressed="false" role="listitem" aria-label="Human Health Risks">
+        <div class="topic-emoji">🏥</div>
+        Human Health Risks
+      </button>
+    </div>
+
+    <div class="detail-panel" hidden role="dialog" aria-modal="true" aria-labelledby="detail-title">
+      <button class="close-btn" aria-label="Close detail panel">&times;</button>
+      <h2 id="detail-title"></h2>
+      <ul class="points-list"></ul>
+      <a class="learn-more" href="#" target="_blank" rel="noopener noreferrer">Learn More</a>
+    </div>
+
+    <div style="text-align: center; margin: 40px auto; max-width: 90%;">
+<br>
+      <img src="https://infinitylearn.com/surge/wp-content/uploads/2022/01/Causes-and-effects-of-Global-Warming-1.jpg?v=1660303669" 
+           alt="Causes and Effects of Global Warming" 
+           style="width: 100%; max-width: 800px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);" />
+    </div>
+
+    <section class="preventions-section" aria-label="How to reduce global warming">
+      <h2>How to Reduce Global Warming</h2>
+      <div class="cards-container">
+        <article class="card" tabindex="0">
+          <div class="card-icon">🌲</div>
+          <p>Plant more trees and support reforestation efforts to absorb CO₂.</p>
+        </article>
+        <article class="card" tabindex="0">
+          <div class="card-icon">🚶‍♂️</div>
+          <p>Use public transport, carpool, bike, or walk to reduce vehicle emissions.</p>
+        </article>
+        <article class="card" tabindex="0">
+          <div class="card-icon">💡</div>
+          <p>Switch to renewable energy sources like solar and wind power.</p>
+        </article>
+        <article class="card" tabindex="0">
+          <div class="card-icon">♻️</div>
+          <p>Reduce, reuse, and recycle to minimize waste and energy use.</p>
+        </article>
+        <article class="card" tabindex="0">
+          <div class="card-icon">🥕</div>
+          <p>Adopt sustainable eating habits by reducing meat consumption.</p>
+        </article>
+        <article class="card" tabindex="0">
+          <div class="card-icon">🏠</div>
+          <p>Improve home insulation and energy efficiency to lower heating/cooling needs.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+  <footer>
+<p>© 2025 Global Issue Explorer. All rights reserved.</p>
+</footer>
+
+
+  <script>
+    const topicsData = {
+      crops: {
+        title: "Threat to Crops",
+        points: [
+          "Crop yields decline due to increased heat and drought.",
+          "Pests and diseases spread faster with warming temperatures.",
+          "Soil quality degrades under heat stress.",
+          "Farmers are adapting with new crop varieties and techniques.",
+          "Food security is threatened in vulnerable regions.",
+          "Global food prices are impacted by climate volatility.",
+          "Agroforestry and sustainable practices help mitigate damage.",
+          "Genetic research aims to develop heat-resistant crops.",
+          "Irrigation management is becoming more critical.",
+          "International cooperation is vital for global food resilience."
+        ],
+        wiki: "https://en.wikipedia.org/wiki/Effects_of_climate_change_on_agriculture"
+      },
+      melting: {
+        title: "Melting Ice and Glaciers",
+        points: [
+          "Polar ice caps and glaciers are melting at unprecedented rates.",
+          "Sea levels are rising due to glacial meltwater.",
+          "Loss of ice affects ocean currents and weather patterns.",
+          "Habitat for polar wildlife like polar bears is shrinking.",
+          "Melting permafrost releases methane, a potent greenhouse gas.",
+          "Glacial retreat disrupts freshwater supplies for millions.",
+          "Tourism and ecosystems in mountainous regions are affected.",
+          "Ice loss contributes to global temperature rise via feedback loops.",
+          "Scientific monitoring uses satellites and ground stations.",
+          "Global efforts aim to reduce emissions to slow melting."
+        ],
+        wiki: "https://en.wikipedia.org/wiki/Glacier_melting"
+      },
+      climate: {
+        title: "Climate Change",
+        points: [
+          "Increasing average temperatures globally and locally.",
+          "More frequent and severe weather events like hurricanes and droughts.",
+          "Shifts in precipitation patterns impacting ecosystems.",
+          "Ocean acidification harms marine life.",
+          "Disruption of traditional farming and fishing livelihoods.",
+          "Increased risks of flooding in coastal areas.",
+          "Climate refugees and displacement increase globally.",
+          "International agreements like the Paris Accord seek to mitigate change.",
+          "Renewable energy is key to reducing emissions.",
+          "Climate education and awareness campaigns are growing."
+        ],
+        wiki: "https://en.wikipedia.org/wiki/Climate_change"
+      },
+      fires: {
+        title: "Forest Fires",
+        points: [
+          "Rising temperatures and drought increase wildfire risk.",
+          "More extensive and intense forest fires globally.",
+          "Loss of biodiversity and habitat for many species.",
+          "Destruction of homes and human infrastructure.",
+          "Air pollution and health impacts from smoke.",
+          "Release of stored carbon dioxide, worsening warming.",
+          "Fire management and prevention strategies evolving.",
+          "Community preparedness and early warning systems improving.",
+          "Reforestation efforts aid recovery post-fires.",
+          "Climate mitigation crucial to reduce future fire severity."
+        ],
+        wiki: "https://en.wikipedia.org/wiki/Wildfire"
+      },
+      wildlife: {
+        title: "Wildlife and Habitat Loss",
+        points: [
+          "Changing climates alter habitats and migration patterns.",
+          "Species extinction risks increase significantly.",
+          "Coral reefs bleach and die from warmer oceans.",
+          "Loss of biodiversity threatens ecosystem services.",
+          "Protected areas need expansion and better management.",
+          "Invasive species exploit changing conditions.",
+          "Conservation biology incorporates climate adaptation.",
+          "Wildlife corridors help species migrate safely.",
+          "Public engagement essential for wildlife protection.",
+          "Scientific research guides policy and action plans."
+        ],
+        wiki: "https://en.wikipedia.org/wiki/Biodiversity_loss"
+      },
+      health: {
+        title: "Human Health Risks",
+        points: [
+          "Heatwaves cause heatstroke and cardiovascular problems.",
+          "Spread of infectious diseases due to changing vectors.",
+          "Food and water insecurity impact nutrition and hygiene.",
+          "Mental health stresses from climate disasters increase.",
+          "Air pollution worsens respiratory diseases.",
+          "Vulnerable populations are disproportionately affected.",
+          "Healthcare systems face increased burdens.",
+          "Climate adaptation includes health system resilience.",
+          "Community awareness and preparedness improve outcomes.",
+          "Global cooperation needed to protect public health."
+        ],
+        wiki: "https://en.wikipedia.org/wiki/Effects_of_climate_change_on_human_health"
+      }
+    };
+
+    const detailPanel = document.querySelector(".detail-panel");
+    const detailTitle = detailPanel.querySelector("h2");
+    const pointsList = detailPanel.querySelector(".points-list");
+    const learnMore = detailPanel.querySelector(".learn-more");
+    const closeBtn = detailPanel.querySelector(".close-btn");
+    const buttons = document.querySelectorAll(".topic-btn");
+
+    function openDetail(topicKey) {
+      const data = topicsData[topicKey];
+      if (!data) return;
+
+      detailTitle.textContent = data.title;
+      pointsList.innerHTML = data.points.map(p => `<li>${p}</li>`).join("");
+      learnMore.href = data.wiki;
+
+      detailPanel.hidden = false;
+      detailPanel.classList.add("open");
+
+      buttons.forEach(btn => {
+        btn.setAttribute("aria-pressed", btn.dataset.topic === topicKey ? "true" : "false");
+      });
+
+      detailPanel.focus();
+    }
+
+    function closeDetail() {
+      detailPanel.classList.remove("open");
+      detailPanel.hidden = true;
+      buttons.forEach(btn => btn.setAttribute("aria-pressed", "false"));
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        if (button.getAttribute("aria-pressed") === "true") {
+          closeDetail();
+        } else {
+          openDetail(button.dataset.topic);
+        }
+      });
+    });
+
+    closeBtn.addEventListener("click", closeDetail);
+
+    // Close panel with Escape key
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && !detailPanel.hidden) {
+        closeDetail();
+      }
+    });
+
+    // Smooth scrolling for navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      const scrollIndicator = document.querySelector('.scroll-indicator');
+      if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+          document.querySelector('.content').scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
