@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbanization</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; text-align: center; background: #f5f5f5; }
+        .hero { height: 100vh; background: url('urban.jpeg') center/cover fixed; color: white; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .btn { padding: 12px 20px; background: lightblue; color: white; border-radius: 25px; text-decoration: none; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; max-width: 900px; margin: auto; padding: 50px 20px; }
+        .flip-card { perspective: 1000px; }
+        .flip-card-inner { width: 100%; height: 250px; transition: 0.5s; transform-style: preserve-3d; position: relative; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; backface-visibility: hidden; padding: 20px; box-sizing: border-box; text-align: center; }
+        .flip-card-front img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+        .flip-card-back { background: #333; color: white; transform: rotateY(180deg); }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .cities { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .city-card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: left; width: 300px; }
+        footer { background: rgb(128, 128, 128); color: white; text-align: center; padding: 20px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div>
+            <h1 style="font-size:100px">Urbanisation</h1>
+            <p>exploring the cons and modern solutions of urbanisation</p>
+        </div>
+    </section>
+
+    <div class="parallax"></div>
+
+    <section id="gallery" class="gallery">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="overpopu.jpeg"></div>
+                <p>Overcrowding</p>
+                <div class="flip-card-back">
+                    <h3>Overcrowding</h3>
+                    <p> Rapid urbanization can lead to overcrowded cities, putting strain on infrastructure and resources.</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="polu.jpeg"></div>
+                <p>Pollution</p>
+                <div class="flip-card-back">
+                    <h3>Pollution</h3>
+                    <p> Increased industrial activity and vehicular emissions can lead to severe air and water pollution.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="cost.jpeg"></div>
+                <p>High Cost of Living</p>
+                <div class="flip-card-back">
+                    <h3>High Cost of Living</h3>
+                    <p> As cities grow, the demand for housing increases, often outpacing supply. This can lead to overcrowded living conditions and the growth of informal settlements or slums.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="health.jpeg"></div>
+                <p>Public Health Issues</p>
+                <div class="flip-card-back">
+                    <h3>Public Health Issues</h3>
+                    <p>Urbanization can contribute to the spread of diseases due to poor sanitation, lack of clean water, and overcrowded conditions. Mental health issues can also rise due to the stress of city life.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="culture.jpeg"></div>
+                <p>Loss of Cultural Identity</p>
+                <div class="flip-card-back">
+                    <h3>Loss of Cultural Identity</h3>
+                    <p> Rapid urbanization may lead to the erosion of traditional cultures, as urban environments often promote more homogenized lifestyles and values.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="crime.jpeg"></div>
+                <p>Increased Crime Rates</p>
+                <div class="flip-card-back">
+                    <h3>Increased Crime Rates</h3>
+                    <p>Overcrowded, underfunded areas with poor infrastructure and limited economic opportunities can result in higher crime rates, as individuals may resort to illegal activities out of necessity.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="unemp.jpeg"></div>
+                <p>Unemployment</p>
+                <div class="flip-card-back">
+                    <h3>Unemployment</h3>
+                    <p> Despite the availability of jobs in urban areas, rapid population growth can outstrip the job market, leading to higher rates of unemployment or underemployment.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="green.jpeg"></div>
+                <p>Loss of Green Spaces</p>
+                <div class="flip-card-back">
+                    <h3>Loss of Green Spaces</h3>
+                    <p>Urban sprawl often leads to the destruction of natural habitats and green spaces, affecting biodiversity.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="heat.jpeg"></div>
+                <p>Urban Heat Island Effect</p>
+                <div class="flip-card-back">
+                    <h3>Urban Heat Island Effect</h3>
+                    <p>Cities tend to be warmer than rural areas due to human activities and the concentration of buildings and pavement, which can contribute to higher energy consumption and discomfort.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="mig.jpeg"></div>
+                <p>Demographic Shift</p>
+                <div class="flip-card-back">
+                    <h3>Demographic Shift</h3>
+                    <p>Urbanization leads to population concentration in cities, changing demographic patterns and influencing migration trends. This can lead to population declines in rural areas.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="energy.jpeg"></div>
+                <p>High energy Demands</p>
+                <div class="flip-card-back">
+                    <h3>High energy Demands</h3>
+                    <p>Cities typically require large amounts of energy for residential, commercial, and industrial purposes, leading to overburdened power grids and greater environmental impact.</p>
+                </div>
+            </div>
+        </div><div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><img src="flood.jpeg"></div>
+                <p>Urban Flooding</p>
+                <div class="flip-card-back">
+                    <h3>Urban Flooding</h3>
+                    <p>Urbanization can increase the risk of flooding due to the loss of natural drainage areas, increased surface runoff, and inadequate stormwater management systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="cities">
+            <div class="city-card">
+                <h3>Lagos, Nigeria</h3>
+                <p>Lagos, Nigeria, is one of the fastest-growing cities in the world, struggling with overpopulation and urban sprawl. Limited infrastructure has led to congestion, inadequate housing, and poor sanitation.</p>
+<center> <a href="https://www.internetgeography.net/topics/what-causes-population-growth-in-lagos/" class="btn">Explore More</a><center>
+            </div>
+            <div class="city-card">
+                <h3>Stockholm, Sweden</h3>
+                <p>Stockholm, Sweden, integrates green spaces, energy-efficient buildings, and sustainable transport to manage urbanization effectively.</p>
+<center> <a href="https://earth5r.org/a-look-inside-stockholm-path-to-sustainable-development/#:~:text=Stockholm%20has%20implemented%20strict%20energy,to%20become%20more%20energy%2Defficient." class="btn">Explore More</a><center>
+            </div>
+            <div class="city-card">
+                <h3>Singapore</h3>
+                <p>ASingapore’s Smart Nation Initiative uses AI and big data to monitor public transportation, reduce traffic congestion, and manage waste efficiently.</p>
+<center> <a href="https://www.novatr.com/blog/singapore-world-smartest-city" class="btn">Explore More</a><center>
+            </div>
+            <div class="city-card">
+                <h3>Los Angeles, USA</h3>
+                <p>Los Angeles, USA, has seen a rise in homelessness due to high housing costs, with many living in temporary shelters or on the streets.</p>
+<center> <a href="https://www.bbc.com/news/articles/cx2vwdw7zn2o" class="btn">Explore More</a><center>
+            </div>
+            <div class="city-card">
+                <h3>Paris, France</h3>
+                <p>Paris, France, has implemented car-free zones, expanded public transport, and introduced electric buses to combat urban congestion and pollution</p>
+<center> <a href="https://www.euronews.com/green/2024/11/08/paris-follows-major-european-cities-with-introduction-of-car-free-zones-and-residents-dont" class="btn">Explore More</a><center>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 Global Issue Explorer. All rights reserved.</p>
+    </footer>
+</body>
+</html>
